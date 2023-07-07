@@ -1,0 +1,356 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <script>
+                        const str = 'API Documents';
+                    </script>
+                    <h1 id="text" class="mb-4 animated slideInDown heading_font text-dark"></h1>
+                    <p class="text-white pb-3 animated slideInDown">
+                        RESTful API for easy access to user-generated
+                        reviews, café listings, and helpful rankings
+                        With Our Free API Service You can Access to all information
+                        We Collect Here About the Countries Citys Café
+                        All You Need is a Confined Account With an API key
+
+                    </p>
+                    <div class="position-relative w-100 mt-3">
+
+                    </div>
+                </div>
+                <figure class="figure col-lg-6 text-center text-lg-start image-div">
+                    <img src="{{ images[0] }}"
+                         class="figure-img img-fluid rounded img-fluid rounded animated zoomIn first-image" alt="..."
+                         width="600"
+                         height="500">
+                    <figcaption class="figure-caption text-end"><a class="text-dark heading_font"
+                                                                   href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+
+            </div>
+        </div>
+    </div>
+    <div class="empty-div bg-white">
+
+    </div>
+    <div class="container-xxl bg-light m-0">
+        <div class="container p-5 wow fadeInLeft" data-wow-delay="0.5s">
+            <div class="d-flex align-items-center mb-4">
+                <h1 class="mb-0">Request</h1>
+                <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
+                <h5 class="mb-0 text-danger">Authentication</h5>
+            </div>
+            <p class="mb-4">All Requests Must Contain header with your string type API key</p>
+            <p class="mb-4 h3 heading_font">Headers Example :</p>
+            <div class="d-flex align-items-center m-4 bg-dark p-5">
+                <pre>headers = {"api-key" : "Your API Key"}</pre>
+            </div>
+        </div>
+        <div class="container p-5 wow fadeInLeft" data-wow-delay="1s">
+            <div class="d-flex align-items-center mb-4">
+                <h1 class="mb-0">API</h1>
+                <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
+                <h5 class="mb-0 text-danger">Errors</h5>
+            </div>
+            <p class="mb-4">Your request can return anm error if your request don't have headers with your API key or
+                Your API key was not valid
+                or one or more parameters in your request not valid</p>
+            <p class="mb-4 h3 heading_font">Errors List :</p>
+            <div class="align-items-center m-4 bg-dark p-5">
+                <pre>Error 400 - Bad Request : Your Request Headers Dont have your "api-key" check the key and Try Again !</pre>
+                <pre>Error 401 - Unauthorized : Your API key is invalid Check Your Key and Try Again !</pre>
+                <pre>Error 404 - Not Found : Your request data was not found in the server</pre>
+                <pre>Error 406 - Not Acceptable : You Miss Some Required Prams  In Your request check api Documentation and Try Again !</pre>
+
+            </div>
+        </div>
+        <div class="container p-5 wow fadeInLeft" data-wow-delay="0.5s">
+            <div class="d-flex align-items-center mb-4">
+                <h1 class="mb-0">API</h1>
+                <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
+                <h5 class="mb-0 text-danger">Request Methods</h5>
+            </div>
+            <p class="mb-4">in this part You can find all API requests Documentation</p>
+            <p class="mb-4 h3 heading_font">API End Points :</p>
+            <div class="align-items-center m-4  p-5">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                    aria-controls="flush-collapseOne">
+                                <span class="text-danger heading_font h3">Get</span><span class="bg-primary mx-2"
+                                                                                          style="width: 30px; height: 2px;"></span>
+                                Many Countries
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                             aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body py-3">
+                                <p class="heading_font h5 text-primary">Description : </p>
+                                <p>Return countries information in our database</p>
+                                <p class="heading_font h5 text-primary">End Point : </p>
+                                <code>https://favoritecafe.ir/api/v1.0/country/all</code>
+                                <p class="heading_font h5 text-primary pt-3">Parameters : </p>
+                                <code>prams = {"count" : (optional default is 10 type : integer) }</code>
+                                <p class="pt-3 heading_font h5 text-primary">Response Parameters : </p>
+                                <div class="bg-dark text-white p-2">
+                                    <pre>'country-name': name of the country,</pre>
+                                    <pre>'capital': capital of the country,</pre>
+                                    <pre>'phone-cod': phone of a country,</pre>
+                                    <pre>'iso-2': iso-2 standard country cod,</pre>
+                                    <pre>'about': information about country</pre>
+                                </div>
+                                <p class="pt-3 pt-3 heading_font h5 text-primary">Request Example :</p>
+                                <div class="bg-dark text-white p-2">
+                                    <p>Example without count :</p>
+                                    <pre>curl --location 'https://favoritecafe.ir/api/v1.0/country/all' --header 'api-key: your api key'</pre>
+                                    <p>Example with count (Number of Results Will be 20) : </p>
+                                    <pre>curl --location 'https://favoritecafe.ir/api/v1.0/country/all?count=20' --header 'api-key: your api key'</pre>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                <span class="text-danger heading_font h3">Get</span><span class="bg-primary mx-2"
+                                                                                          style="width: 30px; height: 2px;"></span>
+                                Single Country with country iso-2 cod
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                             aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <p class="heading_font h5 text-primary">Description : </p>
+                                <p>Return Single countries information in our database with given iso-2 standard cod</p>
+                                <p class="heading_font h5 text-primary">End Point : </p>
+                                <code>https://favoritecafe.ir/api/v1.0/country/single</code>
+                                <p class="heading_font h5 text-primary pt-3">Parameters : </p>
+
+                                <pre class="text-danger">prams ={</pre>
+                                <pre class="text-danger">       "iso_cod": (<strong>'Required'</strong>country iso-2 cod for Example Canada iso-2 cod is 'CA' type : string)</pre>
+                                <pre class="text-danger">       }</pre>
+
+                                <p class="pt-3 heading_font h5 text-primary">Response Parameters : </p>
+                                <div class="bg-dark text-white p-2">
+                                    <pre>'country-name': name of the country,</pre>
+                                    <pre>'capital': capital of the country,</pre>
+                                    <pre>'phone-cod': phone of a country,</pre>
+                                    <pre>'iso-2': iso-2 standard country cod,</pre>
+                                    <pre>'about': information about country</pre>
+                                </div>
+                                <p class="pt-3 pt-3 heading_font h5 text-primary">Request Example :</p>
+                                <div class="bg-dark text-white p-2">
+                                    <pre>curl --location "https://favoritecafe.ir/api/v1.0/country/single?iso_cod='CA'" --header 'api-key: your api key'</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                        aria-controls="flush-collapseThree">
+                                    <span class="text-danger heading_font h3">Get</span><span class="bg-primary mx-2"
+                                                                                              style="width: 30px; height: 2px;"></span>Many
+                                    City inside a Country by country iso-2 cod
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                 aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p class="heading_font h5 text-primary">Description : </p>
+                                    <p>Return Many city inside country information in our database with given iso-2
+                                        standard
+                                        cod</p>
+                                    <p class="heading_font h5 text-primary">End Point : </p>
+                                    <code>https://favoritecafe.ir/api/v1.0/city/all</code>
+                                    <p class="heading_font h5 text-primary pt-3">Parameters : </p>
+
+                                    <pre class="text-danger">prams ={</pre>
+                                    <pre class="text-danger">       "count" : (<strong>'optional'</strong> default is 10 type : integer),</pre>
+                                    <pre class="text-danger">       "iso_cod": (<strong>'Required'</strong>country iso-2 cod for Example Canada iso-2 cod is 'CA' type : string)</pre>
+                                    <pre class="text-danger">       }</pre>
+
+                                    <p class="pt-3 heading_font h5 text-primary">Response Parameters : </p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>'id': id of the city you need this if you want to search for a single city,</pre>
+                                        <pre>'city-name': name of the city,</pre>
+                                        <pre>'population': population of the city,</pre>
+                                        <pre>'latitude': latitude of the city,</pre>
+                                        <pre>'longitude': longitude of the city,</pre>
+                                        <pre>'about': information about the city,</pre>
+                                        <pre>'total-cafe': number of cafe inside the city,</pre>
+                                    </div>
+                                    <p class="pt-3 pt-3 heading_font h5 text-primary">Request Example :</p>
+                                    <div class="bg-dark text-white p-2">
+                                        <p>Example without count :</p>
+                                        <pre>curl --location "https://favoritecafe.ir/api/v1.0/city/all?iso_cod=CA" --header 'api-key: your api key'</pre>
+                                        <p>Example with count (Number of Results Will be 20) : </p>
+                                        <pre>curl --location 'https://favoritecafe.ir/api/v1.0/city/all?iso_cod=CA&count=20' --header 'api-key: your api key'</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseFour" aria-expanded="false"
+                                        aria-controls="flush-collapseFour">
+                                    <span class="text-danger heading_font h3">Get</span><span class="bg-primary mx-2"
+                                                                                              style="width: 30px; height: 2px;"></span>Single
+                                    City With city id
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                 aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p class="heading_font h5 text-primary">Description : </p>
+                                    <p>Return city information in our database with given city id</p>
+                                    <p>(You can find city id by sending request to get all city inside a country end
+                                        point)</p>
+                                    <p class="heading_font h5 text-primary">End Point : </p>
+                                    <code>https://favoritecafe.ir/api/v1.0/city/single</code>
+                                    <p class="heading_font h5 text-primary pt-3">Parameters : </p>
+
+                                    <pre class="text-danger">prams ={</pre>
+                                    <pre class="text-danger">       "id": (<strong>'Required'</strong>id of the city type : string)</pre>
+                                    <pre class="text-danger">       }</pre>
+
+                                    <p class="pt-3 heading_font h5 text-primary">Response Parameters : </p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>'id': id of the city you need this if you want to search for a single city,</pre>
+                                        <pre>'city-name': name of the city,</pre>
+                                        <pre>'population': population of the city,</pre>
+                                        <pre>'latitude': latitude of the city,</pre>
+                                        <pre>'longitude': longitude of the city,</pre>
+                                        <pre>'about': information about the city,</pre>
+                                        <pre>'total-cafe': number of cafe inside the city,</pre>
+                                    </div>
+                                    <p class="pt-3 pt-3 heading_font h5 text-primary">Request Example :</p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>curl --location "https://favoritecafe.ir/api/v1.0/city/all?id=7780f682-4b01-4fdf-9ce0-bdd1f0dd1520" --header 'api-key: your api key'</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseFive" aria-expanded="false"
+                                        aria-controls="flush-collapseFive">
+                                    <span class="text-danger heading_font h3">Get</span><span class="bg-primary mx-2"
+                                                                                              style="width: 30px; height: 2px;"></span>All
+                                    Cafe inside a City
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFive" class="accordion-collapse collapse"
+                                 aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p class="heading_font h5 text-primary">Description : </p>
+                                    <p>Return all cafe information inside a city in our database with given city id</p>
+                                    <p>(You can find city id by sending request to get all city inside a country end
+                                        point)</p>
+                                    <p class="heading_font h5 text-primary">End Point : </p>
+                                    <code>https://favoritecafe.ir/api/v1.0/cafe/all</code>
+                                    <p class="heading_font h5 text-primary pt-3">Parameters : </p>
+
+                                    <pre class="text-danger">prams ={</pre>
+                                    <pre class="text-danger">       "id": (<strong>'Required'</strong>id of the city type : string)</pre>
+                                    <pre class="text-danger">       }</pre>
+
+                                    <p class="pt-3 heading_font h5 text-primary">Response Parameters : </p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>'id': id of the cafe you need this if you want to search for a single cafe,</pre>
+                                        <pre>'create_by': creator of the cafe can be user oe owner</pre>
+                                        <pre>'name': name of the cafe,</pre>
+                                        <pre>'overall rating': overall rating for cafe from 100 its collecting from users votes</pre>
+                                        <pre>'cafe_theme': cafe_theme of the cafe,</pre>
+                                        <pre>'open_time': opening time  of the cafe,</pre>
+                                        <pre>'close_time': closing time of the cafe,</pre>
+                                        <pre>'address': address of the cafe,</pre>
+                                        <pre>'phone': phone number of the cafe,</pre>
+                                        <pre>'coffee_score': coffee score of the cafe,</pre>
+                                        <pre>'wifi_score': wifi score of the cafe,</pre>
+                                        <pre>'power_score': power score of the cafe,</pre>
+                                        <pre>'total_vote': number of total vote users casting of this cafe,</pre>
+                                        <pre>'can_take_calls': a boolean can you answer your phone calls inside this cafe ,</pre>
+                                        <pre>'about': information about this cafe,</pre>
+                                        <pre>'followers': number of followers of the cafe,</pre>
+                                        <pre>'reviews': reviews of this cafe,</pre>
+                                        <pre>'cafe_menu': a list with all this cafe menu items and prices in USD$</pre>
+                                    </div>
+                                    <p class="pt-3 pt-3 heading_font h5 text-primary">Request Example :</p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>curl --location "https://favoritecafe.ir/api/v1.0/cafe/all?id=7795f682-4b01-4fdf-9ce0-bdd1f0dd1520" --header 'api-key: your api key'</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseSix" aria-expanded="false"
+                                        aria-controls="flush-collapseSix">
+                                    <span class="text-danger heading_font h3">Get</span><span class="bg-primary mx-2"
+                                                                                              style="width: 30px; height: 2px;"></span>Single
+                                    Cafe with cafe id
+                                </button>
+                            </h2>
+                            <div id="flush-collapseSix" class="accordion-collapse collapse"
+                                 aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p class="heading_font h5 text-primary">Description : </p>
+                                    <p>Returna cafe information  in our database with given cafe id</p>
+                                    <p>(You can find city id by sending request to get all city inside a country end
+                                        point)</p>
+                                    <p class="heading_font h5 text-primary">End Point : </p>
+                                    <code>https://favoritecafe.ir/api/v1.0/cafe/all</code>
+                                    <p class="heading_font h5 text-primary pt-3">Parameters : </p>
+
+                                    <pre class="text-danger">prams ={</pre>
+                                    <pre class="text-danger">       "id": (<strong>'Required'</strong>id of the cafe type : string)</pre>
+                                    <pre class="text-danger">       }</pre>
+
+                                    <p class="pt-3 heading_font h5 text-primary">Response Parameters : </p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>'id': id of the cafe you need this if you want to search for a single cafe,</pre>
+                                        <pre>'create_by': creator of the cafe can be user oe owner</pre>
+                                        <pre>'name': name of the cafe,</pre>
+                                        <pre>'overall rating': overall rating for cafe from 100 its collecting from users votes</pre>
+                                        <pre>'cafe_theme': cafe_theme of the cafe,</pre>
+                                        <pre>'open_time': opening time  of the cafe,</pre>
+                                        <pre>'close_time': closing time of the cafe,</pre>
+                                        <pre>'address': address of the cafe,</pre>
+                                        <pre>'phone': phone number of the cafe,</pre>
+                                        <pre>'coffee_score': coffee score of the cafe,</pre>
+                                        <pre>'wifi_score': wifi score of the cafe,</pre>
+                                        <pre>'power_score': power score of the cafe,</pre>
+                                        <pre>'total_vote': number of total vote users casting of this cafe,</pre>
+                                        <pre>'can_take_calls': a boolean can you answer your phone calls inside this cafe ,</pre>
+                                        <pre>'about': information about this cafe,</pre>
+                                        <pre>'followers': number of followers of the cafe,</pre>
+                                        <pre>'reviews': reviews of this cafe,</pre>
+                                        <pre>'cafe_menu': a list with all this cafe menu items and prices in USD$</pre>
+                                    </div>
+                                    <p class="pt-3 pt-3 heading_font h5 text-primary">Request Example :</p>
+                                    <div class="bg-dark text-white p-2">
+                                        <pre>curl --location "https://favoritecafe.ir/api/v1.0/cafe/all?id=7795f679-4b01-4fdf-9ce0-bdd1f0dd1520" --header 'api-key: your api key'</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

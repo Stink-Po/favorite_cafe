@@ -1,0 +1,246 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <script>
+                        var str = 'Welcome To Favorite Cafe';
+                    </script>
+                    <h1 id="text" class="mb-4 animated slideInDown heading_font text-dark"></h1>
+                    <p class="text-white pb-3 animated slideInDown">
+                        Our cafe-focused website is a place where café owners
+                        and enthusiasts come together to share information
+                        about cafés around the world. Our platform includes
+                        a RESTful API for easy access to user-generated
+                        reviews, cafe listings, and helpful rankings.
+                        Join our global community of coffee lovers and café owners. Discover new cafés, rank your
+                        favorites, and share your experiences.
+                    </p>
+                    <div class="position-relative w-100 mt-3">
+                        {% if user.is_anonymous %}
+
+                            <form action="{{ url_for('sub') }}" method="post" class="wow fadeInLeft"
+                                  data-wow-delay="0.2s">
+                                <input name="femail" class="form-control border-0 rounded-pill w-100 ps-4 pe-5"
+                                       type="email"
+                                       placeholder="Your Email" style="height: 58px;">
+
+                                <input type="submit" value="Subscribe"
+
+                                       class="btn btn-primary rounded-pill py-2 px-3 shadow-none position-absolute top-0 end-0 m-2">
+
+
+                            </form>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+                <figure class="figure col-lg-6 text-center text-lg-start image-div">
+                    <img src="{{ images[0] }}"
+                         class="figure-img img-fluid rounded img-fluid rounded animated zoomIn first-image" alt="..."
+                         width="600"
+                         height="500">
+                    <figcaption class="figure-caption text-end"><a class="text-dark heading_font"
+                                                                   href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <!-- Facts Start -->
+    <div class="empty-div bg-white p-4"></div>
+    <div class="container-xxl bg-primary  py-6 wow fadeInUp mt-0" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fa fa-users fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ data_saved['len_users'] }}</h1>
+                    <p class="text-white mb-0 heading_font h4">Active Users</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <i class="fa-solid fa-key fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ data_saved['len_api'] }}</h1>
+                    <p class="text-white mb-0 heading_font h4">API Key generated</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <i class="bi bi-cup-hot-fill fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ data_saved['len_cafe'] }}</h1>
+                    <p class="text-white mb-0 heading_font h4">Total Cafe</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                    <i class="bi bi-pencil-fill fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ data_saved['len_blog'] }}</h1>
+                    <p class="text-white mb-0 heading_font h4">Blog Posts</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Facts End -->
+
+    <div class="container-xxl py-6">
+        <div class="container">
+            <div class="row g-5">
+                <figure class="figure col-lg-6 text-center text-lg-start image-div">
+                    <img src="{{ images[1] }}"
+                         class="figure-img img-fluid rounded img-fluid rounded animated zoomIn first-image" alt="..."
+                         width="600"
+                         height="500">
+                    <figcaption class="figure-caption text-start"><a class="text-dark heading_font"
+                                                                     href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <h1 class="mb-4 heading_font">Three Simple Steps To Start </h1>
+                    <p class="mb-4">If you want to use the complete futures of website</p>
+                    <ul class="process mb-0">
+                        <li>
+                            <span><i class="fa fa-cog"></i></span>
+                            <div>
+                                <h5>Sing up for a new Account</h5>
+                                <p></p>
+                            </div>
+                        </li>
+                        <li>
+                            <span><i class="fa fa-address-card"></i></span>
+                            <div>
+                                <h5>Confirm Your Email</h5>
+                                <p></p>
+                            </div>
+                        </li>
+                        <li>
+                            <span><i class="fa fa-check"></i></span>
+                            <div>
+                                <h5>Request an API key</h5>
+                                <p></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-6 bg-primary" id="testimonial">
+        <div class="container">
+            <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3 heading_font">Last Blog Posts</h1>
+                <p class="mb-5"></p>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                {% if last_blog_posts|length != 0 %}
+                    {% for post in last_blog_posts %}
+                        <div class="bg-light p-5 rounded" style="height: 325px;">
+                            <div>
+                                <p><i class="fa-solid fa-feather  text-dark mt-n4 me-3"></i></p>
+                                <h4 class="heading_font" style="height: 75px;">{{ post.title }}</h4>
+                            </div>
+                            <div class="d-flex align-items-center pt-3 mb-0 pb-0">
+                                <img class="img-fluid flex-shrink-0 rounded-circle"
+                                     src="{{ url_for('static', filename=post.img_path) }}"
+                                     style="width: 65px; height: 65px;">
+                            </div>
+                            <div class=" pt-3 pb-3">
+                                <a class="btn btn-primary"
+                                   href="{{ url_for('load_blog_post', post_id=post.id) }}">View Post</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-6" id="features">
+        <div class="container">
+            <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3 heading_font">Advanced Features</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="advanced-feature-item text-center rounded py-5 px-4">
+                        <i class="fa-solid fa-chart-line fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3" style="height: 50px;">Real-time Analytics</h5>
+                        <p class="m-0">Gain valuable insights into your cafe's performance with real-time analytics.
+                            Track foot traffic, peak hours, customer demographics, popular menu items, and more. Make
+                            data-driven decisions to optimize operations, increase efficiency, and improve customer
+                            satisfaction</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="advanced-feature-item text-center rounded py-5 px-4">
+                        <i class="fa fa-handshake fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3" style="height: 50px;">Integration with Third-Party Services</h5>
+                        <p class="m-0">Seamlessly connect your cafe to popular third-party services, such as online food
+                            delivery platforms, reservation systems, and payment gateways. Streamline your operations,
+                            reach a wider audience, and provide a convenient and seamless experience for your
+                            customers</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="advanced-feature-item text-center rounded py-5 px-4">
+                        <i class="fa fa-mobile-screen fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3" style="height: 50px;">Mobile App</h5>
+                        <p class="m-0">Access all the features and functionalities of your cafe management platform on
+                            the go with our mobile app. Manage reservations, track orders, view analytics, send
+                            notifications, and stay connected with your customers wherever you are. Enhance your
+                            efficiency and responsiveness while providing a convenient experience for both you and your
+                            customers</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="advanced-feature-item text-center rounded py-5 px-4">
+                        <i class="fa fa-searchengin fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3" style="height: 50px;">Intelligent Recommendations</h5>
+                        <p class="m-0">EDiscover new opportunities and enhance customer engagement with intelligent
+                            recommendations. Our platform uses advanced algorithms to suggest cafes to users based on
+                            their preferences, location, previous reviews, and cafes they follow. Increase visibility
+                            and attract new customers while offering a personalized experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-6 bg-light" id="testimonial">
+        <h1 class="heading_font text-center pb-5">Last News</h1>
+        <div class="container">
+
+            <div class="owl-carousel testimonial-carousel">
+                {% for item in news %}
+                    <div class="card" style="max-width: 540px;height: 200px;">
+                        <a href="{{ item['url'] }}" target="_blank">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ item['image'] }}" class="img-fluid rounded-start log-images" alt="..."
+                                         style="height: 200px;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <blockquote class="testimony-29101">
+                                            <p><i class="fa-solid fa-radio fa-xl text-primary"></i></p>
+                                            <p class="text-dark">{{ item['title'] }}</p>
+                                            <p class="author text-dark heading_font h5 mb-0 pb-0">
+                                                <cite>&mdash; {{ item['author'] }}</cite></p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel();
+        });
+        $('.loop').owlCarousel({
+            loop: true,
+        });
+    </script>
+
+{% endblock %}

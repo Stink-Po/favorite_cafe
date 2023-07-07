@@ -1,0 +1,45 @@
+{% extends 'admin/master.html' %}
+{% block style %}
+    {{ super }}
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block body %}
+    <div class="container-xxl bg-primary p-5">
+        <h3>New Users</h3>
+        <p>Total : {{ count.new_user_count }}</p>
+        <ul>
+            {% for user in new_users %}
+                <li>
+                    <a>{{ user.new_user }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('clear_users') }}" class="btn btn-sm btn-outline-light text-dark">Clear</a>
+
+    </div>
+    <div class="container-xxl bg-secondary p-5">
+        <h3>New Cafe</h3>
+        <p>Total : {{ count.new_cafe_count }}</p>
+        <ul>
+            {% for cafe in new_cafe %}
+                <li>
+                    <a>{{ cafe.new_cafe }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    <a href="{{ url_for('clear_new_cafe') }}" class="btn btn-sm btn-outline-primary text-dark">Clear</a>
+    </div>
+    <div class="container-xxl bg-primary p-5">
+        <h3>New Subscribe</h3>
+        <p>Total : {{ count.new_sub_count }}</p>
+        <ul>
+        {% for sub in new_subs %}
+            <li>
+                <a>{{ sub.new_sub.email }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    <a href="{{ url_for('clear_subs') }}" class="btn btn-sm btn-outline-light text-dark">Clear</a>
+    </div>
+
+{% endblock %}

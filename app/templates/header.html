@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <title>{{ title }}</title>
+    <meta name="description"
+          content="Explore city rankings, cafe reviews, and insightful articles about coffee and cafes. Join our community, share your cafe experiences, and access our free coffee data API. Start your coffee journey today!">
+    <meta name="keywords" content="city rankings, cafe reviews, coffee articles, cafe experiences, coffee data API">
+    <meta name="description"
+          content="Read a detailed review of [Cafe Name] in [City Name]. Discover the ambiance, menu, service, and customer experiences at this popular coffee spot. Share your own review and help others find great coffee experiences!">
+    <meta name="keywords"
+          content="cafe review, [Cafe Name], [City Name], coffee spot, customer experiences, coffee review">
+    <meta name="description"
+          content="Explore our weblog for captivating articles about coffee, cafe culture, brewing methods, and industry insights. Learn about the latest trends, discover coffee recipes, and dive into the world of coffee with our informative articles.">
+    <meta name="keywords"
+          content="coffee articles, cafe culture, brewing methods, industry insights, coffee trends, coffee recipes">
+    <meta name="description" content="Access our free coffee data API and unlock a wealth of coffee-related information. Retrieve city rankings, cafe details, reviews, and more. Integrate our API into your applications and provide your users with valuable coffee data.">
+  <meta name="keywords" content="coffee data API, city rankings API, cafe details API, cafe reviews API, coffee-related information">
+    <!-- Favicon -->
+    <link href="{{ url_for('static',filename='img/favicon.ico') }}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://kit.fontawesome.com/ecec113220.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Sofia&family=Yanone+Kaffeesatz:wght@700&family=Righteous&Caveat:wght@700&display=swap"
+          rel="stylesheet">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='lib/owlcarousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/owlcarousel/owl.theme.default.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static',filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+
+</head>
+
+<body>
+
+<div class="container-xxl bg-white p-0">
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+<!-- Spinner End -->
+
+
+<!-- Navbar & Hero Start -->
+<div class="container-fluid position-relative p-0" id="home">
+    <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+        <span class="navbar-brand p-0">
+            <h1 class="m-0 site-title">Favorite Cafe</h1>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+        </span>
+        <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto py-0 ">
+                <a href="{{ url_for('index') }}"
+                   class="nav-item nav-link active icon-link icon-link-hover test-nav">Home</a>
+                <a href="{{ url_for('country') }}" class="nav-item nav-link test-nav heading_font h4"><strong>Explor
+                    Worldwide Cafes</strong></a>
+                <a href="{{ url_for('about') }}" class="nav-item nav-link test-nav">About</a>
+                <a href="{{ url_for('donate') }}" class="nav-item nav-link test-nav">Support us</a>
+                <a href="{{ url_for('main_doc') }}" class="nav-item nav-link test-nav">API Document</a>
+                <a href="{{ url_for('.blog') }}" class="nav-item nav-link test-nav">Blog</a>
+                <a href="{{ url_for('contact_us') }}" class="nav-item nav-link test-nav">Contact us</a>
+                {% if user.is_anonymous %}
+                    <a href="{{ url_for('login_sing_up_choice') }}"
+                       class="nav-item nav-link navbar-collapse heading_font h4">Login &nbsp;<span
+                            class="text-dark">|</span> &nbsp;Sing up</a>
+                {% elif user.is_authenticated %}
+                    <div class="dropdown nav-item nav-link nav-bottun">
+                        <button class="btn btn-outline-dark " type="button" data-bs-toggle="dropdown"
+                                aria-expanded="true">
+                            {{ user.username }}
+                        </button>
+                        <ul class="dropdown-menu  dropdown-color m-0">
+                            {% if user.is_admin %}
+                                <li><a class="dropdown-item bi-text-center" href="/admin">Admin Dashboard</a></li>
+                            {% endif %}
+                            <li><a class="dropdown-item text-danger bi-text-center"
+                                   href="{{ url_for('load_dashboard') }}">Dashboardt</a></li>
+                            <li><a class="dropdown-item text-danger bi-text-center"
+                                   href="{{ url_for('log_out') }}">Logout</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
+
+
+
+    {% block content %}
+
+    {% endblock %}
+    <div class="container-fluid bg-dark text-body footer wow fadeIn pt-0 mt-0" data-wow-delay="0.1s">
+        <div class="container py-5 px-lg-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-3">
+                    <p class="section-title text-white h5 mb-4">Address<span></span></p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>Shaghayegh Blv, Kermanshah, IRAN</p>
+                    <p><i class="fa fa-phone-alt me-3"></i>+989188575611</p>
+                    <p><i class="fa fa-envelope me-3"></i>contact@favoritecafe.ir</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://github.com/Stink-Po"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-social"
+                           href="https://www.linkedin.com/in/pourya-mohamadi-93992a272/"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <p class="section-title text-white h5 mb-4">Quick Link<span></span></p>
+                    <a class="btn btn-link" href="{{ url_for('about') }}">About</a>
+                    <a class="btn btn-link" href="{{ url_for('contact_us') }}">Contact us</a>
+                    <a class="btn btn-link" href="{{ url_for('blog') }}">Blog</a>
+                    <a class="btn btn-link" href="{{ url_for('main_doc') }}">API Document</a>
+                    <a class="btn btn-link" href="{{ url_for('donate') }}">Support us</a>
+                    <a class="btn btn-link" href="{{ url_for('terms') }}">Terms and Conditions</a>
+
+
+                </div>
+                <div class="col-md-6 col-lg-3">
+
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <p class="section-title text-white h5 mb-4">Newsletter<span></span></p>
+                    <p>Subscribe to get the last Updates</p>
+                    <div class="position-relative w-100 mt-3">
+                        <form action="{{ url_for('sub') }}" method="post">
+                            <label>
+                                <input name="femail" class="form-control border-0 rounded-pill w-100 ps-4 pe-5"
+                                       type="email"
+                                       placeholder="Your Email" style="height: 48px;">
+                            </label>
+                            <button type="submit" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i
+                                    class="fa fa-paper-plane text-primary fs-4"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container px-lg-5">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">favoritecafe.ir</a>, All Right Reserved.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="#">Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+
+<!-- off canvas -->
+
+
+<!-- JavaScript Libraries -->
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script src="{{ url_for('static',filename='lib/wow/wow.min.js') }}"></script>
+<script src="https://kit.fontawesome.com/ecec113220.js" crossorigin="anonymous"></script>
+<script src="{{ url_for('static',filename='lib/easing/easing.min.js') }}"></script>
+<script src="{{ url_for('static',filename='lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ url_for('static',filename='lib/counterup/counterup.min.js') }}"></script>
+<script src="{{ url_for('static',filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+<!-- Template Javascript -->
+<script src="{{ url_for('static',filename='js/main.js') }}"></script>
+
+
+</body>
+
+</html>

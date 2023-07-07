@@ -1,0 +1,59 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container-xxl bg-primary hero-header mb-0">
+
+    </div>
+    <div class="container-xxl bg-white pb-5">
+        <div class="row justify-content-center">
+
+            <div class="col-md-8">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% for err , msg in message.items() %}
+                                <p class="flash text-danger">{{ msg[0] }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <div class="card-group mb-0">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h1>New Post</h1>
+                            <p class="text-muted">Make a New Blog Post</p>
+
+                            <form method="post" action="" enctype="multipart/form-data">
+                                {{ form.csrf_token }}
+                                {{ ckeditor.load() }}
+                                {{ ckeditor.config(name='body') }}
+                                {{ form.title.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.title(class="form-control") }}
+                                </div>
+                                {{ form.subtitle.label }}
+                                <div class="input-group mb-3">
+                                    {{ form.subtitle(class="form-control") }}
+                                </div>
+                                {{ form.body.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.body(class="form-control") }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{ form.submit(class="btn btn-primary px-4") }}                </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

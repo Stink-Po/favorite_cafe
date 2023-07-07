@@ -1,0 +1,285 @@
+{% extends "header.html" %}
+{% block content %}
+    <div class="container-xxl  bg-primary pt-5" style="height:100px; width:100%; clear:both;">
+
+        <div class="container pt-5">
+
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                 aria-label="breadcrumb">
+
+                <ol class="breadcrumb navigation-link">
+                    <li class="breadcrumb-item "><a class="text-dark" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item "><a class="text-dark" href="{{ url_for('country') }}">Country
+                        List</a></li>
+                    <li class="breadcrumb-item "><a class="text-dark"
+                                                    href="{{ url_for('load_country', name=country_data.country_name) }}">{{ country_data.country_name }}</a>
+                    </li>
+                    <li class="breadcrumb-item "><a class="text-dark"
+                                                    href="{{ url_for('load_city', city=city_data.city_name) }}">{{ city_data.city_name }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ cafe_data.name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start p-5">
+                    <script>
+                        const str = "{{ cafe_data.name }}";
+                    </script>
+                    <h1 id="text" class="mb-4 animated slideInDown heading_font text-dark">Welcome To Favorite Cafe</h1>
+                    <h6 class="text-dark mb-4"><i class="fa-solid fa-users"></i> &nbsp;
+                        Followers: {{ cafe_data.followers|length }}</h6>
+                    <h6 class="text-dark mb-4"><i class="fa-solid fa-palette"></i>&nbsp;
+                        &nbsp;Theme: {{ cafe_data.cafe_theme }}</h6>
+
+                    <div class="position-relative w-100 mt-3">
+                        {% if user.is_authenticated %}
+                            {% if following %}
+                                <div class="btn-group dropdown-center">
+                                    <button type="button" class="btn btn-success">Following</button>
+                                    <button type="button" class="btn btn-danger dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="True" data-bs-display="static">
+                                    </button>
+                                    <ul class="dropdown-menu text-center">
+                                        <li class="p-0">
+                                            <a href="{{ url_for('unfollow',cafe_id=cafe_data.id, country_id=country_data.id, city=city_data.city_name) }}"
+                                               class="text-danger">UnFollow</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            {% elif not following %}
+                                <form method="post"
+                                      action="{{ url_for('follow',cafe_id=cafe_data.id, country_id=country_data.id, city=city_data.city_name) }}">
+
+                                    <button type="submit" class="btn btn-success">Follow</button>
+
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <h6><a class="text-dark pt-5" href="{{ url_for('login_sing_up_choice') }}">Login |
+                                Sing up For
+                                Follow a café rate and Write a Review</a></h6>
+                        {% endif %}
+                    </div>
+                </div>
+                <figure class="figure col-lg-6 text-center text-lg-start image-div w-15">
+                    <img src="{{ url_for('static',filename=cafe_data.image) }}"
+                         class="figure-img img-fluid rounded img-fluid rounded animated zoomIn first-image" alt="..."
+                         width="600"
+                         height="500">
+                    <figcaption class="figure-caption text-end"><a class="text-dark heading_font"
+                                                                   href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl bg-white my-6 py-5 mt-0 mb-0">
+    {% if cafe_data.about %}
+        <div class="container wow fadeInUp" data-wow-delay="0.1s">
+            <h4 class="heading_font text-center pb-5">About Café : </h4>
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='about') }}
+            <p class="text-dark pb-3  text-center" data-wow-delay="0.2s"> {{ cafe_data.about|safe }}</p>
+        </div>
+    {% endif %}
+        {% if cafe_data.menu_id %}
+        <div class="container wow fadeInUp" data-wow-delay="0.1s">
+            <h1 class="heading_font text-center pb-5">Cafe Menu </h1>
+            <table class="table w-50 mx-auto">
+                    <thead>
+                    <tr>
+                        <th scope="col">Menu Item</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in menu_dict %}
+                    <tr>
+                        <td>{{ item['menu_item'] }}</td>
+                        <td>{{ item['item_price'] }} $</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    {% endif %}
+    </div>
+    <div class="container-xxl bg-light my-6 py-5 mb-0 mt-0" id="overview">
+        <div class="container">
+            <div class="row g-5 py-5 align-items-center">
+                <figure class="figure col-lg-6 text-center text-lg-start image-div">
+                    <img src="{{ url_for('static',filename='img/cafe_info.jpg') }}"
+                         class="img-fluid rounded" alt="..."
+                    >
+                    <figcaption class="figure-caption text-start"><a class="text-dark heading_font"
+                                                                     href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="d-flex align-items-center mb-4">
+                        <h1 class="mb-0"><i class="fa-solid fa-mug-saucer fa-bounce"></i></h1>
+                        <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
+                        <h5 class="mb-0">Cafe Information</h5>
+                    </div>
+                    <p><i class="fa-solid fa-location-dot text-primary me-3"></i><strong>Address
+                        :</strong> {{ cafe_data.address }}</p>
+                    <p><i class="fa-solid fa-phone text-primary me-3"></i><strong>Phone Number
+                        : </strong>{{ cafe_data.phone }}</p>
+                    <p><i class="fa-solid fa-door-open text-primary me-3"></i><strong>Open Time
+                        : </strong>{{ cafe_data.open_time }}</p>
+                    <p><i class="fa-solid fa-door-closed text-primary me-3"></i><strong>Close Time
+                        : </strong>{{ cafe_data.close_time }}</p>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            const over = {{ cafe_data.cafe_rating|int }};
+            const cofe = {{ cafe_data.coffee_score|int }};
+            const wifi = {{ cafe_data.wifi_score|int }};
+            const power = {{ cafe_data.power_score|int }};
+        </script>
+        <div class="container">
+            <div class="row g-5 py-5 align-items-center flex-column-reverse flex-lg-row">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="d-flex align-items-center mb-4">
+                        <h1 class="mb-0"><i class="fa-solid fa-ranking-star fa-bounce"></i></h1>
+                        <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
+                        <h5 class="mb-0">Cafe Rating</h5>
+                    </div>
+                    <p><i class="fa-solid fa-medal text-primary me-3"></i><strong>Overall Rating
+                        From {{ cafe_data.total_vote }} Votes </strong></p>
+                    <div class="progress">
+                        <div id="overall" class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                             aria-valuemin="0" aria-valuemax="100"><span
+                                class="text-white font-weight-bold">{{ cafe_data.cafe_rating|int }}/100</span>
+
+                        </div>
+                    </div>
+                    <p class="pt-3"><i class="fa-solid fa-mug-hot text-primary me-3"></i><strong>Coffee Rating</strong>
+                    </p>
+                    <div class="progress">
+                        <div id="coffee" class="progress-bar bg-primary" role="progressbar" style="width: 90%"
+                             aria-valuenow="90"
+                             aria-valuemin="0" aria-valuemax="100"><span
+                                class="text-white font-weight-bold">{{ cafe_data.coffee_score|int }}/100</span>
+                        </div>
+                    </div>
+                    <p class="pt-3"><i class="fa-solid fa-wifi text-primary me-3"></i><strong>Wifi Rating</strong></p>
+                    <div class="progress">
+                        <div id="wifi" class="progress-bar bg-primary" role="progressbar" style="width: 60%"
+                             aria-valuenow="60"
+                             aria-valuemin="0" aria-valuemax="100"><span
+                                class="text-white font-weight-bold">{{ cafe_data.wifi_score|int }}/100</span></div>
+                    </div>
+                    <p class="pt-3"><i class="fa-solid fa-plug-circle-bolt text-primary me-3"></i><strong>Power
+                        Rating</strong></p>
+                    <div class="progress">
+                        <div id="power" class="progress-bar bg-primary" role="progressbar" style="width: 80%"
+                             aria-valuenow="80"
+                             aria-valuemin="0" aria-valuemax="100"><span
+                                class="text-white font-weight-bold">{{ cafe_data.power_score|int }}/100</span></div>
+                    </div>
+                    <div class="pt-5">
+                        {% if not voted %}
+                            {% if  user.is_owener == False %}
+                                <a href="{{ url_for('voting',cafe_id=cafe_data.id,country_id=country_data.id,city=city_data.city_name) }}"
+                                   class="btn btn-success">Vote</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                </div>
+                <figure class="figure col-lg-6 text-center text-lg-start image-div">
+                    <img src="{{ url_for('static',filename='img/coffee_rating.jpg') }}"
+                         class="img-fluid rounded" alt="..."
+                    >
+                    <figcaption class="figure-caption text-start"><a class="text-dark heading_font"
+                                                                     href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+            </div>
+
+        </div>
+    </div>
+    <div class="container-xxl bg-white my-6 py-5 mt-0 mb-0">
+        <div class="container mt-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-8">
+                    <div class="d-flex flex-column comment-section">
+
+                        {% for comment in cafe_data.reviews %}
+                            <div class="bg-white p-2  border border-3 border-primary p-3">
+                                <div class="d-flex flex-row user-info">
+                                    {% if comment.review_author.image %}
+                                        <img class="rounded-circle"
+                                             src="{{ url_for('static',filename=comment.review_author.image) }}"
+                                             width="40">
+                                    {% else %}
+                                        <img class="rounded-circle"
+                                             src="{{ comment.review_author.username | gravatar }}"
+                                             width="40">
+                                    {% endif %}
+
+                                </div>
+                                <div class="mt-2">
+                                    <p class="comment-text">{{ comment.text|safe }}</p>
+                                </div>
+                                <div class="d-flex flex-column justify-content-start ml-2"><span
+                                        class="d-block font-weight-bold name">written by : {{ comment.review_author.username }}</span><span
+                                        class="date text-black-50">Review Date : {{ comment.date }}</span></div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    {% if user.is_authenticated %}
+                        {% if not user.is_owner %}
+                            <div class="p-2">
+                                <div class="d-flex flex-row align-items-start">
+                                    {% if user.image %}
+                                        <img class="rounded-circle"
+                                             src="{{ url_for('static',filename=user.image) }}"
+                                             width="40">
+                                    {% else %}
+                                        <img class="rounded-circle"
+                                             src="{{ user.username | gravatar }}"
+                                             width="40">
+                                    {% endif %}
+                                </div>
+                                <div class="mt-2 text-right">
+                                    <form method="post" class="p-2"
+                                          action="{{ url_for('load_cafe', cafe_id=cafe_data.id, country_id=country_data.id, city=city_data.city_name) }}">
+                                        {{ form.csrf_token }}
+                                        <div class="form-group">
+                                            <label for="{{ form.comment_text.id }}">{{ form.comment_text.label }}</label>
+                                            <textarea id="{{ form.comment_text.id }}"
+                                                      class="form-control shadow-none textarea"
+                                                      name="{{ form.comment_text.name }}" rows="6"
+                                                      cols="80">{{ sanitize_input(form.comment_text.data) }}</textarea>
+                                        </div>
+                                        <div class="text-right">
+                                            {{ form.submit(class="btn btn-primary btn-sm shadow-none") }}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <p>Please login/ Sing up to Add Comment to this post</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

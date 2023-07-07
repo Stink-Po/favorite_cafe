@@ -1,0 +1,237 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+
+    <div class="container-xxl py-6 bg-primary text-light mb-0 pb-0">
+        <div class="container">
+            <div>
+                {% if user.image %}
+                    <img class="rounded"
+                         src=" {{ url_for('static',filename=user.image) }}"
+                         width="150">
+                {% else %}
+                    <img class="rounded-circle"
+                         src="{{ user.username | gravatar }}"
+                         width="150">
+                {% endif %}
+
+            </div>
+            <div class="p-2">
+                <button type="button" class="btn btn-outline-dark pl-2" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                    Change Avatar
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade pl-3" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                 tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Upload Your Avatar</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="{{ url_for('load_dashboard') }}"
+                              enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                {{ form.csrf_token }}
+                                {{ form.hidden_tag() }}
+                                {{ form.image.label }}
+                                <div class="form-group">
+                                    {{ form.image(class='form-control') }}
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                {{ form.submit(class="btn btn-primary px-4") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container-xxl pb-6 hero-header bg-primary text-light mb-0" id="about">
+        <div class="container">
+            <div class="d-flex flex-row user-info">
+                <div class="d-flex flex-column justify-content-start ml-2"></div>
+            </div>
+            <div class="row g-5 flex-column-reverse flex-lg-row">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="mb-4 row">Your Account Status</h1>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 btn-square rounded-circle bg-success text-white">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div class="ms-4">
+                            <h5>Your Activity</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        {% if user.confirmed %}
+                            <div class="flex-shrink-0 btn-square rounded-circle bg-success text-white">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5>Confirm Email</h5>
+                            </div>
+                        {% else %}
+                            <div class="flex-shrink-0 btn-square rounded-circle bg-danger text-white">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5><a href="{{ url_for('send_conformation') }}">Confirm your Email</a></h5>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex mb-4">
+                        {% if api_key %}
+                            <div class="flex-shrink-0 btn-square rounded-circle bg-success text-white">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5>API Key</h5>
+                            </div>
+                        {% else %}
+                            <div class="flex-shrink-0 btn-square rounded-circle bg-danger text-white">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5><a class="text-dark" href="{{ url_for('create_key') }}">Request API key</a>
+                                </h5>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex mb-4">
+                        {% if user.api_use %}
+                            <div class="flex-shrink-0 btn-square rounded-circle bg-success text-white">
+                                <i class="fa fa-check"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5>Using API</h5>
+                            </div>
+                        {% else %}
+                            <div class="flex-shrink-0 btn-square rounded-circle bg-danger text-white">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5><a class="text-dark" href="{{ url_for('main_doc') }}">Start using API</a></h5>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="mb-4 row text-muted">Your Account Details</h1>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 btn-square rounded-circle bg-dark text-white">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="ms-4">
+                            <h5>User Name</h5>
+                            <p class="mb-0">{{ user.username }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 btn-square rounded-circle bg-dark text-white">
+                            <i class="bi bi-envelope-at-fill"></i>
+                        </div>
+                        <div class="ms-4">
+                            <h5>email</h5>
+                            <p class="mb-0">{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 btn-square rounded-circle bg-dark text-white">
+                            <i class="bi bi-key-fill"></i>
+                        </div>
+                        <div class="ms-4">
+                            <h5>API Key</h5>
+                            <p class="mb-0">{{ api_key }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0 btn-square rounded-circle bg-dark text-white">
+                            {% if user.image %}
+                                <img class="rounded-circle"
+                                     src=" {{ url_for('static',filename=user.image) }}"
+                                     width="35">
+                            {% else %}
+                                <img class="rounded-circle"
+                                     src="{{ user.username | gravatar }}"
+                                     width="35">
+                            {% endif %}
+                        </div>
+                        <div class="ms-4">
+                            <h5>Upload Your Avatar</h5>
+                            <p class="mb-0">{{ user.username }}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl bg-white py-6" id="features">
+        <div class="container mx-auto">
+            <div class="mx-auto heading_font text-center wow fadeInUp pb-5" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 class="mb-3">Edit Information</h1>
+            </div>
+            <div class="row g-4">
+                <div role="button" class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s"
+                     onclick=" window.location.href='{{ url_for('change_email') }}' ;">
+                    <div class="advanced-feature-item text-center rounded py-5 px-4 bg-light">
+                        <i class="fa fa-edit fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3">Change Email</h5>
+                    </div>
+                </div>
+                <div role="button" class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.3s"
+                     onclick=" window.location.href='{{ url_for('check_pass') }}' ;">
+
+                    <div class="advanced-feature-item text-center rounded py-5 px-4 bg-light">
+                        <i class="fa fa-sync fa-3x text-primary mb-4"></i>
+                        <h5 class="mb-3">Change Password</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl bg-primary pb-5  wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <i class="bi bi-cup-hot-fill fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ total_cafe_added }}</h1>
+                    <p class="text-white mb-0">Total Cafe added</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <i class="bi bi-pencil fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ total_review }}</h1>
+                    <p class="text-white mb-0">Total Review</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <i class="bi bi-chat-right-heart-fill fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ user.following_cafe|length }}</h1>
+                    <p class="text-white mb-0">Cafe followed</p>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                    <i class="bi bi-chat-text-fill  fa-3x text-white mb-3"></i>
+                    <h1 class="mb-2" data-toggle="counter-up">{{ user.total_api_use }}</h1>
+                    <p class="text-white mb-0">Total API call</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl empty-div bg-white">
+
+    </div>
+
+
+{% endblock %}

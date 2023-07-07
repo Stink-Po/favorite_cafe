@@ -1,0 +1,109 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container-xxl bg-primary hero-header mb-0">
+
+    </div>
+    <div class="container-xxl bg-white">
+        <div class="row justify-content-center">
+
+            <div class="col-md-8">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+
+                            <p class="flash text-danger">{{ message }}</p>
+
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="card-group mb-0">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h1>New Cafe</h1>
+                            <p class="text-muted">Add Your Favorite Cafe</p>
+                            <script>
+                                const url = '/{{ city }}/add_new_cafe'
+                            </script>
+                            <form id="my-form" name="cafe" method="post" action=""
+                                  enctype="multipart/form-data">
+                                {{ cafe_form.csrf_token }}
+                                {{ ckeditor.load() }}
+                                {{ ckeditor.config(name='about') }}
+                                {{ cafe_form.name.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.name(class="form-control") }}
+                                </div>
+                                {{ cafe_form.cafe_theme.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.cafe_theme(class="form-control") }}
+                                </div>
+                                {{ cafe_form.open_time.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.open_time(class="form-control") }}
+                                </div>
+                                {{ cafe_form.close_time.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.close_time(class="form-control") }}
+                                </div>
+                                {{ cafe_form.image.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.image(class="form-control") }}
+                                </div>
+                                {{ cafe_form.can_take_calls.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.can_take_calls(class="form-control") }}
+                                </div>
+                                {{ cafe_form.address.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.address(class="form-control") }}
+                                </div>
+                                {{ cafe_form.phone.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.phone(class="form-control") }}
+                                </div>
+                                {{ cafe_form.coffee_score.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.coffee_score(min='0',max='100',class="form-control") }}
+                                </div>
+                                {{ cafe_form.wifi_score.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.wifi_score(min='0',max='100',class="form-control") }}
+                                </div>
+                                {{ cafe_form.power_score.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.power_score(min='0',max='100',class="form-control") }}
+                                </div>
+                                {{ cafe_form.about.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.about(class="form-control") }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{ cafe_form.submit(class="btn btn-primary px-4") }}  </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

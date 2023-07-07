@@ -1,0 +1,63 @@
+{% extends "header.html" %}
+
+{% block content %}
+     <div class="container-xxl  bg-primary pt-5" style="height:100px; width:100%; clear:both;">
+
+    </div>
+    <div class="container-xxl bg-white mt-0" data-wow-delay="0.s">
+        <div class="row p-5 w-75 mx-auto">
+            <div class="card col-12 col-md-6 center-block  border-0 wow fadeInLeft" data-wow-delay="0.2s">
+                <a href="{{ url_for('user_sing_in') }}">
+                    <div class="row g-0">
+                        <div class="w-100">
+                            <img src="{{ url_for('static',filename='img/young-woman-eating-croissants-cafe.jpg') }}"
+                                 class="first-image" alt="..." width="600" height="500">
+                        </div>
+                        <div class="w-100">
+                            <div class="card-body">
+                                <h1 class="m-3 card-title  heading_font text-primary  border-top border-bottom border-info  text-center">
+                                    <u>Coffee Lover Sign in</u></h1>
+                                <p class="card-text text-dark text-center">As a Coffee Lover You are in the
+                                    best Place With Coffee Lover Account You Can add Your favorite cafe
+                                    You can rate Cafe and write a Review`s about your favorite Cafe
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-12 col-md-6 center-block  border-0 wow fadeInRight" data-wow-delay="0.2s">
+                <a href="{{ url_for('owner_sing_in') }}">
+                    <div class="row g-0">
+                        <div class="w-100">
+                            <img src="{{ url_for('static',filename='img/smiling-waiter-making-cup-coffee-counter.jpg') }}"
+                                 class="first-image" alt="...">
+                        </div>
+                        <div class="w-100">
+                            <div class="card-body">
+                                <h1 class="m-3 card-title  heading_font text-primary  border-top border-bottom border-info  text-center">
+                                    Cafe Owners Sign in</h1>
+                                <p class="card-text text-dark  text-center">If you Own a cafe or You are a Coffee
+                                    Lover this is a
+                                    Right
+                                    Place for You Join us Today and Share Your Story's With Our AwsomeCommunity
+                                    with owner Account You can Share Your Cafe Menu Your staff numbers and in your
+                                    Dashboard
+                                    You can Have useful information about Your Café or Cafes Like total visit of your
+                                    Café
+                                    page on favorite cafe that will only show to you But You Can`t write Review and rate
+                                    Your
+                                    café or others This account its free Right now But Not for a long time
+                                    with this account You will be submitted as every Café you will Create in this website
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

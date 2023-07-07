@@ -1,0 +1,51 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <div class="container-xxl bg-primary pt-5" style="height: 100px; width: 100%; clear: both;"></div>
+    <div class="container-xxl bg-light m-0">
+        <div class="tip-button p-5" align="center">
+            <p class="text-dark heading_font h4">If you Like our work You can support us with donating 0.01 ETH ~ 4$</p>
+            <img src="../../static/img/meta.png">
+        </div>
+        <!-- Metamask Script -->
+        <div class="message"></div>
+    </div>
+
+
+    <script>
+        var my_address = '0xB9E7e57079B818D6fcb0A1490B0Bf0Ef40cc8E1D';
+        var tipButton = document.querySelector('.tip-button');
+
+        tipButton.addEventListener('click', function () {
+            if (typeof web3 === 'undefined') {
+                return renderMessage('<div align="center">You need to install <a href="https://metamask.io/"><u>MetaMask</u></a> to use this.</div>');
+            } else {
+                // Request account access if needed
+                ethereum.enable().then(function () {
+                    // Accounts now exposed
+                    web3.eth.sendTransaction({
+                        to: my_address,
+                        from: web3.eth.accounts[0],
+                        value: web3.utils.toWei('0.01', 'ether'),
+                        gas: 50000,
+                    }, function (err, transactionHash) {
+                        if (err) {
+                            return renderMessage('There was a problem!: ' + err.message);
+                        } else {
+                            // If you get a transaction hash, you can assume it was sent,
+                            // or if you want to guarantee it was received, you can poll
+                            // for that transaction to be mined first.
+                            renderMessage('Thanks for the generosity!!');
+                        }
+                    });
+                });
+            }
+        });
+
+        function renderMessage(message) {
+            var messageEl = document.querySelector('.message');
+            messageEl.innerHTML = message;
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="row p-5">
+            <div class="card col-12 col-md-6 center-block bg-primary border-0">
+                <a href="{{ url_for('lover_add_cafe', city=city) }}">
+                    <div class="row g-0">
+                        <div class="w-100">
+                            <img src="{{ url_for('static',filename='img/young-woman-eating-croissants-cafe.jpg') }}"
+                                 class="animated zoomIn first-image" alt="..." width="600" height="500">
+                        </div>
+                        <div class="w-100">
+                            <div class="card-body">
+                                <h1 class="m-3 card-title  heading_font text-light  border-top border-bottom border-light  text-center">
+                                    <u>Add a Cafe as a Coffee Lover</u></h1>
+                                <p class="card-text text-dark text-center">
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card col-12 col-md-6 center-block bg-primary border-0">
+                <a href="{{ url_for('owner_add_cafe', city=city) }}">
+                    <div class="row g-0">
+                        <div class="w-100">
+                            <img src="{{ url_for('static',filename='img/smiling-waiter-making-cup-coffee-counter.jpg') }}"
+                                 class=" animated zoomIn first-image" alt="...">
+                        </div>
+                        <div class="w-100">
+                            <div class="card-body">
+                                <h1 class="m-3 card-title  heading_font text-light  border-top border-bottom border-light  text-center">
+                                    Add a Cafe as a Owner</h1>
+                                <p class="card-text text-dark  text-center">
+
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl bg-white empty-div">
+
+    </div>
+{% endblock %}

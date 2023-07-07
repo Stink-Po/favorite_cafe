@@ -1,0 +1,41 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+
+
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="text-white mb-4 animated slideInDown">{{ post.title }}</h1>
+                    <p class="text-white pb-3 animated slideInDown">{{ post.subtitle }}</p>
+                    <p class="text-dark">Created by <strong>{{ post.author.username }}</strong> in {{ post.date }} </p>
+                </div>
+                <div class="col-lg-6 text-center text-lg-start image-div">
+                    <img class="img-fluid rounded animated zoomIn first-image"
+                         src="{{ url_for('static',filename=post.img_path) }}" alt=""
+                         width="600"
+                         height="500">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="text-dark container-xxl m-0 bg-white p-5" style="display: flex">
+            <div class="container text-left ml-5 country-list">
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='body') }}
+                {{ post.body|safe }}
+            </div>
+
+        </div>
+    </div>
+    <hr>
+
+
+
+
+    <hr>
+
+{% endblock %}

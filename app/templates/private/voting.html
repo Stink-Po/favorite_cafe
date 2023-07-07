@@ -1,0 +1,86 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container-xxl bg-primary hero-header mb-0">
+
+    </div>
+    <div class="container-xxl bg-white">
+        <div class="row justify-content-center">
+
+            <div class="col-md-8">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+
+                            <p class="flash text-danger">{{ message }}</p>
+
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="card-group mb-0">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <h1>Vote cafe</h1>
+                            <p class="text-muted">rate this cafe</p>
+                            {% if vote_manager.voted %}
+                            <form id="my-form" name="cafe" method="post" action=""
+                                  enctype="multipart/form-data">
+                                {{ form.csrf_token }}
+                                {{ form.coffee_score.label }} Your Past score : {{ vote_manager.votes.coffee_rating }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.coffee_score(min='0',max='100', value=vote_manager.votes.coffee_rating,class="form-control") }}
+                                </div>
+                                {{ form.wifi_score.label }} Your Past score : {{ vote_manager.votes.wifi_rating }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.wifi_score(min='0',max='100',value=vote_manager.votes.wifi_rating,class="form-control") }}
+                                </div>
+                                {{ form.power_score.label }} Your Past score : {{ vote_manager.votes.power_rating }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.power_score(min='0',max='100',value=vote_manager.votes.power_rating,class="form-control") }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{ form.submit(class="btn btn-primary px-4") }}  </div>
+
+                                </div>
+                            </form>
+                            {% else %}
+                            <form id="my-form" name="cafe" method="post" action=""
+                                  enctype="multipart/form-data">
+                                {{ form.csrf_token }}
+                                {{ form.coffee_score.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.coffee_score(min='0',max='100',class="form-control") }}
+                                </div>
+                                {{ form.wifi_score.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.wifi_score(min='0',max='100',class="form-control") }}
+                                </div>
+                                {{ form.power_score.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ form.power_score(min='0',max='100',class="form-control") }}
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        {{ form.submit(class="btn btn-primary px-4") }}  </div>
+
+                                </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

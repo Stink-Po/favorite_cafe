@@ -1,0 +1,190 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+    <div class="container-xxl  bg-primary pt-5" style="height:100px; width:100%; clear:both;">
+
+    </div>
+
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <script>
+                        const str = 'Terms and Conditions';
+                    </script>
+                    <h1 id="text" class="mb-4 animated slideInDown heading_font text-dark"></h1>
+                    <p class="text-white pb-3 animated slideInDown">
+                        Welcome to Favorite Cafe! By using our website, you agree to be bound by the following terms and
+                        conditions outlined below.
+                    </p>
+                    <div class="position-relative w-100 mt-3">
+
+                    </div>
+                </div>
+                <figure class="figure col-lg-6 text-center text-lg-start image-div">
+                    <img src="{{ url_for('static', filename='img/terms.jpg') }}"
+                         class="figure-img img-fluid rounded img-fluid rounded animated zoomIn first-image" alt="..."
+                         width="600"
+                         height="500">
+                    <figcaption class="figure-caption text-end"><a class="text-dark heading_font"
+                                                                   href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl bg-white pt-5">
+        <div class="p-5">
+            <div class="border-start border-secondary pr-5 terms-div">
+                <ol>
+                    <li class="text-primary h4 heading_font">
+                        User Conduct
+                        <ul>
+                            <li>
+                                You must be at least 18 years old to use our website
+                            </li>
+                            <li>
+                                You are solely responsible for all content that you submit to the website, including
+                                reviews, comments, photos, and other materials.
+                            </li>
+                            <li>
+                                You agree not to use our website for any unlawful purpose or in any way that could
+                                damage,
+                                disable, overburden, or impair our servers or networks.
+
+                            </li>
+                            <li>
+                                You agree not to engage in any activity that interferes with or disrupts our website or
+                                services.
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="text-primary h4 heading_font">
+                        Intellectual Property
+                        <ul>
+                            <li>
+                                All content on the website, including text, graphics, logos, images, and software, is
+                                owned
+                                by us or our partners and is protected by copyright laws.
+
+                            </li>
+                            <li>
+                                You may not reproduce, distribute, or create derivative works from any content on our
+                                website without our express written consent.
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="text-primary h4 heading_font">
+                        Cafe Listings and Reviews
+                        <ul>
+                            <li>
+                                We do not guarantee the accuracy, completeness, or reliability of any information
+                                provided
+                                on our website.
+
+                            </li>
+                            <li>
+                                We reserve the right to remove any cafe listing or review at our sole discretion.
+
+                            </li>
+                            <li>
+                                By submitting a review, you warrant that you have personally visited the cafe and that
+                                your
+                                review is truthful and accurate.
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="text-primary h4 heading_font">
+                        API Service
+                        <ul>
+                            <li>
+                                Our API service is provided "as is" without any warranty of any kind.
+
+                            </li>
+                            <li>
+                                We reserve the right to limit or revoke access to our API service at any time and for
+                                any
+                                reason.
+
+                            </li>
+                            <li>
+                                You agree not to use our API service for any commercial purpose or in any way that
+                                violates
+                                these terms and conditions.
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="text-primary h4 heading_font">
+                        Disclaimer of Warranties
+                        <ul>
+                            <li>
+                                We make no warranties or representations about the accuracy or completeness of the
+                                content
+                                on our website or API service.
+
+                            </li>
+                            <li>
+                                We do not guarantee that our website or API service will be error-free or uninterrupted.
+
+                            </li>
+                            <li>
+                                We disclaim all warranties, express or implied, including but not limited to warranties
+                                of
+                                merchantability, fitness for a particular purpose, and non-infringement.
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="text-primary h4 heading_font">
+                        Limitation of Liability
+                        <ul>
+                            <li>
+                                In no event shall we be liable for any damages, including but not limited to direct,
+                                indirect, incidental, consequential, or punitive damages arising from your use of our
+                                website or API service.
+
+                            </li>
+                            <li>
+                                You agree to indemnify and hold us harmless from any claims, damages, or expenses
+                                arising
+                                from your use of our website or API service.
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="text-primary h4 heading_font">
+                        Modifications to Terms and Conditions
+                        <ul>
+                            <li>
+                                We reserve the right to modify these terms and conditions at any time without prior
+                                notice.
+
+                            </li>
+                            <li>
+                                Your continued use of our website or API service after any changes to these terms and
+                                conditions constitutes your acceptance of the updated terms.
+
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <p class="p-terms h6 pt-5">
+                By using our website or API service, you acknowledge that you have read these terms and conditions and
+                agree to be bound by them. If you do not agree with these terms and conditions, please do not use our
+                website or API service
+            </p>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

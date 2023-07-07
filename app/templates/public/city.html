@@ -1,0 +1,172 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+    <div class="container-xxl  bg-primary pt-5" style="height:100px; width:100%; clear:both;">
+
+        <div class="container pt-5">
+
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                 aria-label="breadcrumb">
+
+                <ol class="breadcrumb navigation-link">
+                    <li class="breadcrumb-item "><a class="text-dark" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item "><a class="text-dark" href="{{ url_for('country') }}">Country
+                        List</a></li>
+                    <li class="breadcrumb-item "><a class="text-dark"
+                                                    href="{{ url_for('load_country', name=country_data.country_name) }}">{{ country_data.country_name }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+            <h1 id="text" class="text-white mb-4"></h1>
+
+
+            <div class="row g-5">
+                <div class="col-lg-6 text-center text-lg-start">
+
+                    <script> const str = "{{ title }}";</script>
+
+
+                    <p class="text-dark pb-3 wow fadeInUp" data-wow-delay="0.2s">{{ data.about }}</p>
+
+                    <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+                    window.myWidgetParam.push({
+                        id: 9,
+                        cityid: '{{ data.city_id }}',
+                        appid: '628eac36e00b83a114e238eb513122ee',
+                        units: 'metric',
+                        containerid: 'openweathermap-widget-9',
+                    });
+                    (function () {
+                        const script = document.createElement('script');
+                        script.async = true;
+                        script.charset = "utf-8";
+                        script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+                        const s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(script, s);
+                    })();</script>
+                    <div class="">
+                        <div id="openweathermap-widget-9" class="w-10 wow fadeInDownBig" data-wow-delay="0.1s"></div>
+                        <p class="pb-3 pt-3 heading_font h5 wow fadeInLeft" data-wow-delay="0.2s"><i
+                                class="fa-solid fa-people-group"></i>&nbsp;
+                            Population : <span
+                                    class="new-color set-default-font">{{ population }}</span>
+                        </p>
+                        <p class="pb-3 heading_font h5 wow fadeInLeft" data-wow-delay="0.3s"><i
+                                class="fa-solid fa-mug-saucer"></i>&nbsp;
+                            Total Cafe : <span
+                                    class="new-color set-default-font">{{ cafe_data|length }}</span>
+                        </p>
+                        {% if user.is_authenticated %}
+                            {% if user.confirmed %}
+                                <a href="{{ url_for('add_cafe',city=title) }}"
+                                   class="btn btn-small btn-outline-danger text-white">Add
+                                    New Cafe</a>
+                            {% else %}
+                                <h5><a class="text-dark pt-5" href="{{ url_for('send_conformation') }}">Confirm
+                                    Your
+                                    Account Please then You can Add a New Cafe</a></h5>
+                            {% endif %}
+                        {% else %}
+                            <h5><a class="text-dark pt-5" href="{{ url_for('login_sing_up_choice') }}">Login |
+                                Sing up For
+                                Add a New Cafe or Write A Review</a></h5>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="animated zoomIn col-lg-6 text-center text-lg-start image-div">
+                    <img class="img-fluid rounded  first-image" src="{{ images[0] }}" alt="" width="600"
+                         height="500">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl bg-white">
+        <div class="container bg-white justify-content-center  my-6 py-6 m-0 w-75 mx-auto">
+            <h1 class="text-primary heading_font mb-4"><i class="fa-solid fa-mug-saucer fa-bounce"></i>&nbsp;List of
+                Café :</h1>
+            {% for cafe in cafe_data %}
+                <div class="row  wow fadeInUp  border-top border-5 border-primary p-3" data-wow-delay="0.1s">
+                    <div class="col-md-5">
+                        <h3 class="heading_font">Cafe Details</h3>
+
+                        <div class="d-flex">
+                            <p class="heading_font h5">Overall Rating : &nbsp;</p>
+                            <div class="rating-{{ cafe.id }}"></div>
+                        </div>
+
+                        <script>
+                            const score{{ cafe.id }} = {{ cafe.cafe_rating|int }};
+                            const fullStars{{ cafe.id }} = Math.floor(score{{ cafe.id }} / 20);
+                            const halfStar{{ cafe.id }} = (score{{ cafe.id }} % 20 >= 10);
+                            const ratingDiv{{ cafe.id }} = document.querySelector('.rating-{{ cafe.id }}');
+
+                            for (let i = 1; i <= 5; i++) {
+                                if (i <= fullStars{{ cafe.id }}) {
+                                    ratingDiv{{ cafe.id }}.innerHTML += '<i class="fa fa-star rating-color"></i>';
+                                } else if (i === fullStars{{ cafe.id }} + 1 && halfStar{{ cafe.id }}) {
+                                    ratingDiv{{ cafe.id }}.innerHTML += '<i class="fa-solid fa-star-half-stroke rating-color"></i>';
+                                } else {
+                                    ratingDiv{{ cafe.id }}.innerHTML += '<i class="fa-regular fa-star"></i>';
+                                }
+                            }
+                        </script>
+
+                        <p><span class="heading_font h5">Name :&nbsp;&nbsp;</span>{{ cafe.name }}</p>
+                        <p><span class="heading_font h5">Theme :&nbsp;</span>{{ cafe.cafe_theme }}</p>
+                        <p><span class="heading_font h5">Address :&nbsp;</span>&nbsp;{{ cafe.address }}</p>
+                        <p><span class="heading_font h5">Phone Number :&nbsp;&nbsp;</span>{{ cafe.phone }}</p>
+
+                        <a class="btn btn-outline-primary"
+                           href="{{ url_for('load_cafe', cafe_id=cafe.id, country_id=country_data.id, city=title) }}">
+                            View Cafe
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container-xxl bg-white empty-div mb-0">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            {% for page in cafe_paginate.iter_pages(left_edge=3,right_edge=3, left_current=2, right_current=3) %}
+                {% if page %}
+                    <li class="page-item">
+                        {% if num == page %}
+                            <a class="page-link disabled bg-primary text-white"
+                               href="{{ url_for('load_city',city=title, num=page) }}">{{ page }}</a>
+                        {% else %}
+                            <a class="page-link"
+                               href="{{ url_for('load_city',city=title, num=page) }}">{{ page }}</a>
+                        {% endif %}
+                    </li>
+
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+    <div class="container-xxl bg-primary hero-header mb-0">
+                <div class="container">
+                    <div class="row g-5 align-items-center">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="text-white mb-4 animated slideInDown">{{ title }}</h1>
+                            <p class="text-white pb-3 animated slideInDown">{{ error_msg }}</p>
+
+                        </div>
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <img class="img-fluid rounded animated zoomIn" src="../../static/img/coffee.gif" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

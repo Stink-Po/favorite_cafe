@@ -1,0 +1,185 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container-xxl bg-primary mb-0 hero-header">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <script>const str = 'Insert Your Cafe Details';</script>
+                    <h1 id="text" class="mb-4 animated slideInDown heading_font text-dark">Welcome To Favorite Cafe</h1>
+                    <p class="text-white pb-3 animated slideInDown">
+                        As An Café Owner You Properly Need More Customers Even You have alot of
+                        them already So This Is the best place for You to Show Your Café to the World
+
+                    </p>
+                    <p class="text-danger pb-3 wow  fadeInLeftBig" data-wow-delay="0.2s">
+                        <strong> Don't Forget To Add your  Cafe Menu Items then Submit Your Café Details</strong>
+                    </p>
+                    <div class="position-relative w-100 mt-3">
+
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center text-lg-start image-div first-div">
+                    <img class="img-fluid rounded animated zoomIn first-image" src="{{ images[0] }}" alt=""
+                         width="600" height="500">
+                    <a class="pexels" href="https://www.pexels.com">Photos provided by Pexels</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const url = '/{{ city }}/add_new_cafe'
+    </script>
+
+    <div class="container-xxl pt-0 bg-white pb-5">
+        <div class="row justify-content-center wow fadeInUp " data-wow-delay="0.1s">
+            <div class="col-md-8">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+
+                            <p class="flash text-danger">{{ message }}</p>
+
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <div class="card-group mb-0">
+                    <div class="card col-12 col-md-6 center-block">
+                        <div class="card-body">
+                            <h1 class="heading_font">New Cafe</h1>
+                            <p class="text-muted">Add Your Cafe</p>
+
+                            <form id="my-form" name="cafe" method="post" action=""
+                                  enctype="multipart/form-data">
+                                {{ cafe_form.csrf_token }}
+                                {{ ckeditor.load() }}
+                                {{ ckeditor.config(name='about') }}
+                                {{ cafe_form.name.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.name(class="form-control") }}
+                                </div>
+                                {{ cafe_form.cafe_theme.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.cafe_theme(class="form-control") }}
+                                </div>
+                                {{ cafe_form.staff.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.staff(class="form-control") }}
+                                </div>
+                                {{ cafe_form.open_time.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.open_time(class="form-control") }}
+                                </div>
+                                {{ cafe_form.close_time.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.close_time(class="form-control") }}
+                                </div>
+                                {{ cafe_form.image.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.image(class="form-control") }}
+                                </div>
+                                {{ cafe_form.can_take_calls.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.can_take_calls(class="form-control") }}
+                                </div>
+                                {{ cafe_form.address.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.address(class="form-control") }}
+                                </div>
+                                {{ cafe_form.phone.label }}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"></span>
+                                    {{ cafe_form.phone(class="form-control") }}
+                                </div>
+
+
+                                <div class="pt-2 pb-2 flex">
+                                    {{ cafe_form.submit(id="submit-button", class="btn btn-outline-primary px-4") }}
+                                </div>
+                                <div>
+
+
+                                </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card col-12 col-md-6 center-block bg-primary">
+                        <div class="card-body">
+                            <h1 class="heading_font text-light">Cafe Menu</h1>
+                            <p class="text-muted">Add Your Cafe Menu</p>
+                            <div id="data_container">
+                                <div id="dynamic-fields">
+
+                                    <table class="text-center" id="my-table">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-light">Menu item</th>
+                                            <th class="text-light">Price in USD $</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="p-4">
+                                        <tr class="p-2">
+                                            <td><label>
+                                                <input class="input-group mb-3 form-control" name="item[]"
+                                                       type="text">
+                                            </label></td>
+                                            <td><label>
+                                                <input class="input-group mb-3 form-control" name="price[]"
+                                                       type="text">
+                                            </label></td>
+
+                                        </tr>
+                                        <tr class="p-2">
+                                            <td><label>
+                                                <input class="input-group mb-3 form-control" name="item[]"
+                                                       type="text">
+                                            </label></td>
+                                            <td><label>
+                                                <input class="input-group mb-3 form-control" name="price[]"
+                                                       type="text">
+                                            </label></td>
+
+                                        </tr>
+                                        <tr class="p-2">
+                                            <td><label>
+                                                <input class="input-group mb-3 form-control" name="item[]"
+                                                       type="text">
+                                            </label></td>
+                                            <td><label>
+                                                <input class="input-group mb-3 form-control" name="price[]"
+                                                       type="text">
+                                            </label></td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    </form>
+                                </div>
+                                <button id="add_rows" class="w-100 btn btn-outline-dark px-4 text-light ">Add Extra Row
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

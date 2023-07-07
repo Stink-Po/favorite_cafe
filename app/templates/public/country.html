@@ -1,0 +1,101 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+
+    <div class="container-xxl  bg-primary pt-5" style="height:100px; width:100%; clear:both;">
+
+        <div class="container pt-5">
+
+            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                 aria-label="breadcrumb">
+
+                <ol class="breadcrumb navigation-link">
+                    <li class="breadcrumb-item "><a class="text-dark" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Country List</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-xxl bg-primary hero-header mb-0">
+        <div class="container">
+
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 text-center text-lg-start slideInDown">
+                    <h1 id="text" class="text-white mb-4 animated  heading_font">
+                        <script> const str = "Countries Start With : {{ alpha_lower[page - 1] }}";
+                        </script>
+
+                    </h1>
+                    <p class="pb-3 wow fadeInLeft text-dark" data-wow-dealy="0.2s">
+                        'Explore our Comprehensive Collection of Countries from around the globe, alphabetically
+                        arranged for your convenience. Click on any Country to discover Detailed Information about its
+                        history,Culture, People and Cities. Discover new Destinations, plan your next trip or simply
+                        expand your knowledge of the world with our easy-to-use alphabetical directory';
+
+                    </p>
+
+                </div>
+                <figure class="figure col-lg-6 text-center text-lg-start image-div animated zoomIn">
+                    <img src="{{ image[0] }}"
+                         class="figure-img img-fluid rounded img-fluid rounded  first-image" alt="..."
+                         width="600"
+                         height="500">
+                    <figcaption class="figure-caption text-end"><a class="text-dark heading_font"
+                                                                   href="https://www.pexels.com">Photos provided by
+                        Pexels</a></figcaption>
+                </figure>
+
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial Start -->
+    <div class="bg-white mx-auto align-items-center justify-content-center pt-5 pr-5 pl-0 pb-0">
+        <div class="container wow fadeInUp bg-white w-100" data-wow-delay="0.1s" style="display: flex">
+            <div style="display: block">
+                {% if page==1 %}
+                    <button class="btn disabled"><i class="bi bi-arrow-left-square-fill text-primary h1"></i></button>
+                {% else %}
+                    <button class="btn" role="button"
+                            onclick="window.location.href=' {{ url_for('country', index=page - 1) }}';"><i
+                            class="bi bi-arrow-left-square-fill text-primary h1"></i></button>
+                {% endif %}
+                <h1 class="text-primary text-center">{{ alphabet[page - 1] }}</h1>
+                {% if page==26 %}
+                    <button class="btn disabled"><i class="bi bi-arrow-right-square-fill text-primary h1"></i></button>
+                {% else %}
+                    <button class="btn" role="button"
+                            onclick="window.location.href=' {{ url_for('country', index=page + 1) }}';"><i
+                            class="bi bi-arrow-right-square-fill text-primary h1"></i></button>
+                {% endif %}
+            </div>
+
+            <div class="container text-left ml-5 country-list">
+                <div class="row">
+                    {% for item in countrys %}
+                        <div class="col col-6 text-primary col-sm-4 h6 p-2 border-start border-3 border-danger shadow-sm">
+                            <a href="{{ url_for('load_country', name=item['country']) }}">{{ item['country'] }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center flex-wrap pt-5 pb-0">
+                {% for word in alphabet %}
+                    {% if word==alphabet[page - 1] %}
+                        <li class="page-item active"><a class="page-link" href="">{{ word }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="{{ url_for('country', index=loop.index) }}">{{ word }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Testimonial End -->
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "header.html" %}
+
+
+{% block content %}
+
+
+    <div class="container-xxl  bg-primary pt-5" style="height:400px; width:100%; clear:both;" >
+        <div class="container align-content-center text-center message-page wow fadeInDown" data-wowdelay="0.2s">
+            <h5 class="text-center pb-2">{{ message }}</h5>
+            <a href="{{ url_for('index') }}" class="btn btn-light pt-2 mt-2">Return home</a>
+        </div>
+    </div>
+    <div class="empty-div bg-primary"></div>
+
+
+
+
+
+
+{% endblock %}
