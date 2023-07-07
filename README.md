@@ -1,4 +1,3 @@
-# favorite_cafe
 # favoritecafe.ir
 
 Welcome to **favoritecafe.ir**, a dynamic website built with Python Flask, Bootstrap CSS, and JavaScript. This website allows users to discover and review cafes from around the world. With the help of Pexels API, we showcase captivating pictures on every page, creating an immersive experience for our users.
@@ -26,7 +25,7 @@ To set up the project locally, follow these steps:
 
 Install the required dependencies:
 
-    pip install -r requirements.txt
+   pip install -r requirements.txt
 
 Configure your environment variables for database connections and API keys.
 
