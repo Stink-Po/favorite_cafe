@@ -25,13 +25,13 @@ To set up the project locally, follow these steps:
 
 Install the required dependencies:
 
-   pip install -r requirements.txt
+       pip install -r requirements.txt
 
 Configure your environment variables for database connections and API keys.
 
 Launch the application:
 
-    python app.py
+       python app.py
 Access the website via your browser at http://localhost:5000.
 
 API Documentation
